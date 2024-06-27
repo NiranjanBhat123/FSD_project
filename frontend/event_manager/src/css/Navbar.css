@@ -75,3 +75,7 @@
 .main-content {
   margin-top: calc(var(--header-height));
 }
+
+.nav__link.active {
+  color: orange;
+}
