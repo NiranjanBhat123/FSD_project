@@ -41,3 +41,13 @@
     color: #C0C0C0; /* Light grey text color */
   }
   
+  .description-container {
+    background-color: #484848; /* Grey background */
+    padding: 1rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    text-align: center;
+    color:#C0C0C0;
+    font-size: 1rem;
+  }
+  

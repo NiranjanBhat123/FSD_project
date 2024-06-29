@@ -19,7 +19,7 @@ const ShareDialog = ({ open, onClose, event }) => {
 
   const handleShare = (platform) => {
     let shareUrl = ''; 
-    let defaultMessage = `Hey, I'm excited to inform you about ${event.name}! Check it out: ${event.images[0].url}`;
+    let defaultMessage = `Hey, I'm excited to inform you about this event ${event.name}! Check it out: ${event.images[0].url}`;
     
     switch (platform) {
       case 'instagram':

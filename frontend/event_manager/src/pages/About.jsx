@@ -12,14 +12,21 @@ import EventSupportImage from '../assets/images/Event-Support.jpeg';
 const About = () => {
   return (
     <div className="about-container">
-      <h1>About Event Buzz</h1>
+      <h1 style={{marginTop:"3rem",textAlign:"center",color:"orange"}}>What do we do ?</h1>
+      <div className="description-container">
+        <p>
+          <strong>Event Buzz is your ultimate college event organizing platform, providing end-to-end support for successful events.</strong>
+        </p>
+      </div>
       <div className="services-container">
+      
+
         {/* Service 1 */}
         <Card className="service-card" style={{background:"#343434"}}>
           <CardActionArea>
             <CardMedia
               component="img"
-              height="250"
+              height="290"
               image={PromotionImage}
               alt="Event Promotion"
             />
@@ -39,7 +46,7 @@ const About = () => {
           <CardActionArea>
             <CardMedia
               component="img"
-              height="250"
+              height="290"
               image={RegistrationImage}
               alt="Registration Management"
             />
@@ -59,7 +66,7 @@ const About = () => {
           <CardActionArea>
             <CardMedia
               component="img"
-              height="250"
+              height="290"
               image={EventSupportImage}
               alt="Event Support"
             />

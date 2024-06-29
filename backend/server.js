@@ -23,7 +23,7 @@ const eventSchema = new mongoose.Schema({
   });
   
 
-const Event = mongoose.model('Event', eventSchema, 'events'); // 'events' is the collection name
+const Event = mongoose.model('Event', eventSchema, 'events'); 
 
 
 mongoose.connect('mongodb://localhost:27017/eventsDB')
