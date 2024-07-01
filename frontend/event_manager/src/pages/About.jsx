@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect} from 'react';
 import '../css/About.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -10,6 +10,12 @@ import RegistrationImage from '../assets/images/reg.png';
 import EventSupportImage from '../assets/images/Event-Support.jpeg';
 
 const About = () => {
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+}, []);
+
   return (
     <div className="about-container">
       <h1 style={{marginTop:"3rem",textAlign:"center",color:"orange"}}>What do we do ?</h1>
