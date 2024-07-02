@@ -19,7 +19,23 @@ const eventSchema = new mongoose.Schema({
   detailedDiscription:String,
 });
 
+
+const registrationSchema = new mongoose.Schema({
+  eventId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event'
+  },
+  name: String,
+  email: String,
+  branch: {
+    type: String,
+    enum: ['CSE', 'ISE', 'ECE', 'EEE', 'Civil', 'Mechanical']
+  },
+  phone: String
+});
+
 const Event = mongoose.model("Event", eventSchema, "events");
+const Registration  = mongoose.model("Registration",registrationSchema,"registration");
 
 mongoose
   .connect("mongodb://localhost:27017/eventsDB")
@@ -56,6 +72,45 @@ app.get("/api/events/:id", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+
+app.post('/api/register', async (req, res) => {
+  const { eventId, name, email, branch, phone } = req.body;
+  
+  if (!eventId || !name || !email || !branch || !phone) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const existingRegistration = await Registration.findOne({ eventId, $or: [{ email }, { phone }] });
+    
+    if (existingRegistration) {
+      return res.status(400).json({ message: 'Email or phone number already registered for this event' });
+    }
+
+
+  try {
+    const registration = new Registration({
+      eventId,
+      name,
+      email,
+      branch,
+      phone
+    });
+
+  
+    
+    await registration.save();
+    await Event.findByIdAndUpdate(eventId, { $inc: { registrations: 1 } });
+
+    res.status(201).json({ message: 'Registration successful', registration });
+  } catch (error) {
+    
+    console.error('Error saving registration:', error);
+    res.status(500).json({ message: 'Error saving registration' });
+  }
+});
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

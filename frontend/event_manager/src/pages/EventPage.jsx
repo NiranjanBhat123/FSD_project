@@ -3,21 +3,91 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { FaCalendarAlt, FaClock, FaUsers, FaMapMarkerAlt } from 'react-icons/fa'; // Import icons
 import '../css/EventPage.css';
+import { Modal, Box, TextField, Button, Grid, Typography, MenuItem, IconButton, Alert } from '@mui/material';
+import toast, { Toaster } from 'react-hot-toast';
+import CloseIcon from '@mui/icons-material/Close';
 
+
+const branches = ["CSE", "ISE", "ECE", "EEE", "Civil", "Mechanical"];
 const EventPage = () => {
   const location = useLocation();
   const eventId = location.state.eventId;
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    branch: '',
+    phone: ''
+  });
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setError('');
+    setFormData({
+      name: '',
+      email: '',
+      branch: '',
+      phone: ''
+    })
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, email, branch, phone } = formData;
+
+    if (!name || !email || !branch || !phone) {
+      setError('Please fill in all fields.');
+      return;
+    }
+
+    try {
+
+      const registrationData = {
+        eventId,
+        name,
+        email,
+        branch,
+        phone
+      };
+      console.log(registrationData);
+
+      await axios.post('http://localhost:5000/api/register', registrationData);
+      toast.success("Registration successful!");
+      setFormData({
+        name: '',
+        email: '',
+        branch: '',
+        phone: ''
+      })
+      handleClose();
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      }
+      console.error('Error registering:', error);
+      
+    }
+  };
+
 
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        console.log("Trying to fetch event with ID:", eventId);
+
         const response = await axios.get(`http://localhost:5000/api/events/${eventId}`);
         setEvent(response.data);
         setLoading(false);
-        console.log('Event fetched:', response.data);
+
       } catch (error) {
         console.error('Error fetching event:', error);
         setLoading(false);
@@ -64,7 +134,75 @@ const EventPage = () => {
         <h2>What's this about ?</h2>
         <p>{event.detailedDiscription}</p>
       </div>
-      <button className="register-button">Register</button>
+      <button className="register-button" onClick={handleOpen}>Register</button>
+      <Modal open={open} onClose={handleClose}>
+        <Box className="modal-box" component="form" noValidate onSubmit={handleSubmit} sx={{ p: 4 }}>
+          <IconButton className="close-button" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+          <Typography component="h1" variant="h5" style={{ color: "orange", textAlign: "center", marginBottom: "2rem" }}>Register for Event</Typography>
+          {error && <Alert style={{ marginBottom: "1rem" }} severity="error">{error}</Alert>}
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                value={formData.name}
+                onChange={handleChange}
+
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                select
+                id="branch"
+                label="Branch"
+                name="branch"
+                value={formData.branch}
+                onChange={handleChange}
+              >
+                {branches.map((branch) => (
+                  <MenuItem key={branch} value={branch}>{branch}</MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="phone"
+                label="Phone"
+                name="phone"
+                autoComplete="phone"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </Grid>
+          </Grid>
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            Register
+          </Button>
+        </Box>
+      </Modal>
+      <Toaster />
     </div>
   );
 };

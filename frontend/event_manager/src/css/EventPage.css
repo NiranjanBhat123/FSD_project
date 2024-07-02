@@ -106,3 +106,17 @@
   .register-button:hover {
     background-color: #ffcc80; /* Lighter shade of orange on hover */
   }
+
+
+  .modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 2px solid #C0C0C0;
+    box-shadow: 24px;
+    padding: 16px;
+    border-radius: 10px;
+  }
