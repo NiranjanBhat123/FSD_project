@@ -28,6 +28,14 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
+            <li>
+            <NavLink 
+                to="/host" 
+                className={({ isActive }) => isActive ? "nav__link active" : "nav__link"}
+              >
+                Host an event
+              </NavLink>
+            </li>
           </ul>
         </div>
       </nav>
