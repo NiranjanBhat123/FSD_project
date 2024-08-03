@@ -19,20 +19,20 @@ const ShareDialog = ({ open, onClose, event }) => {
 
   const handleShare = (platform) => {
     let shareUrl = ''; 
-    let defaultMessage = `Hey, I'm excited to inform you about this event ${event.name}! Check it out: ${event.images[0].url}`;
+    let defaultMessage = `Hey, I'm excited to inform you about this event ${event.name}! Check it out: ${event.image}`;
     
     switch (platform) {
       case 'instagram':
-        shareUrl = `https://www.instagram.com/share?url=${encodeURIComponent(event.image1)}&title=${encodeURIComponent(defaultMessage)}`;
+        shareUrl = `https://www.instagram.com/share?url=${encodeURIComponent(event.image)}&title=${encodeURIComponent(defaultMessage)}`;
         break;
       case 'whatsapp':
         shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(defaultMessage)}`;
         break;
       case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(event.image1)}&quote=${encodeURIComponent(defaultMessage)}`;
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(event.image)}&quote=${encodeURIComponent(defaultMessage)}`;
         break;
       case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(event.image1)}&text=${encodeURIComponent(defaultMessage)}`;
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(event.image)}&text=${encodeURIComponent(defaultMessage)}`;
         break;
       default:
         break;

@@ -92,7 +92,7 @@ const Host = () => {
                 sx={{ p: 4 }}
                 onSubmit={handleSubmit}
             >
-                <Typography component="h6" variant="h6" style={{ color: "#C0C0C0", textAlign: "center", marginBottom: "2rem" }}>
+                <Typography component="h6" variant="h6" style={{ color: "#C0C0C0", textAlign: "center", marginBottom: "1rem" }}>
                     Kindly fill the details of the event below
                 </Typography>
                 <Grid container spacing={2}>
@@ -183,35 +183,7 @@ const Host = () => {
                             }}
                             sx={{ mt: 2, mb: 2 }}
                         />
-                        <label htmlFor="">select date and time</label><br />
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <MobileDateTimePicker
-                                
-                                value={formData.date}
-                                
-                                onChange={handleDateChange}
-                                renderInput={(props) => (
-                                    <TextField
-                                        {...props}
-                                        fullWidth
-                                        required
-                                        InputLabelProps={{ sx: { color: '#C0C0C0' } }}
-                                        style={{ color: "#C0C0C0", marginTop: "4rem" }}
-                                        InputProps={{
-                                            sx: {
-                                                '& .MuiInputBase-input::placeholder': {
-                                                    color: '#C0C0C0',
-                                                },
-                                            },
 
-                                            style: { color: "#C0C0C0" }
-
-                                        }}
-
-                                    />
-                                )}
-                            />
-                        </LocalizationProvider>
 
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -278,8 +250,40 @@ const Host = () => {
                                     },
                                 },
                             }}
-                            sx={{ mt: 2 }}
+                            sx={{ mt: 2 ,mb:"1rem"}}
                         />
+
+
+
+                        <label htmlFor="">select date and time</label><br /><br />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <MobileDateTimePicker
+
+                                value={formData.date}
+
+                                onChange={handleDateChange}
+                                renderInput={(props) => (
+                                    <TextField
+                                        {...props}
+                                        fullWidth
+                                        required
+                                        InputLabelProps={{ sx: { color: '#C0C0C0' } }}
+                                        style={{ color: "#C0C0C0", marginTop: "4rem" }}
+                                        InputProps={{
+                                            sx: {
+                                                '& .MuiInputBase-input::placeholder': {
+                                                    color: '#C0C0C0',
+                                                },
+                                            },
+
+                                            style: { color: "#C0C0C0" }
+
+                                        }}
+
+                                    />
+                                )}
+                            />
+                        </LocalizationProvider>
 
                     </Grid>
                 </Grid>

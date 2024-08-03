@@ -62,7 +62,7 @@ const EventPage = () => {
       console.log(registrationData);
 
       await axios.post('http://localhost:5000/api/register', registrationData);
-      toast.success("Registration successful!");
+      toast.success("Registration successful!",{duration:3000});
       setFormData({
         name: '',
         email: '',
