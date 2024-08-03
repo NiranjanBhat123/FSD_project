@@ -61,7 +61,7 @@ const EventPage = () => {
       };
       console.log(registrationData);
 
-      await axios.post('http://localhost:5000/api/register', registrationData);
+      await axios.post('https://fsd-project-5.onrender.com/api/register', registrationData);
       toast.success("Registration successful!",{duration:3000});
       setFormData({
         name: '',
