@@ -61,7 +61,7 @@ const EventPage = () => {
       };
       console.log(registrationData);
 
-      await axios.post('https://fsd-project-5.onrender.com/api/register', registrationData);
+      await axios.post('https://event-buzz-backend.onrender.com/api/register', registrationData);
       toast.success("Registration successful!",{duration:3000});
       setFormData({
         name: '',
@@ -84,7 +84,7 @@ const EventPage = () => {
     const fetchEvent = async () => {
       try {
 
-        const response = await axios.get(`http://localhost:5000/api/events/${eventId}`);
+        const response = await axios.get(`https://event-buzz-backend.onrender.com/api/events/${eventId}`);
         setEvent(response.data);
         setLoading(false);
 

@@ -39,7 +39,7 @@ export default function RecipeReviewCard() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('https://fsd-project-5.onrender.com/api/events');
+        const response = await axios.get('https://event-buzz-backend.onrender.com/api/events');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error);
